@@ -1,0 +1,116 @@
+<div class="_crystal-tooltip" id="_crystalTooltip"></div>
+<div id="_crystalTargetDiv">
+    <div id="_crystalVerticalBar"></div>
+    <div id="_crystalHorizontalBar"></div>
+</div>
+<div id="_crystalUiDiv">
+    <div class="_crystal-ui-tab _crystal-flex-column _crystal-material-icon" id="_crystalUiTab" data-state="0">&#xE5D4;</div>
+    <div class="_crystal-ui-scroll-wrapper">
+        <div id="_crystalCntrlBlocker"></div>
+        <div class="_crystal-cntrl-row" id="_crystalViewPicker">
+            <div class="_crystal-collapser _crystal-material-icon" data-tooltip="Collapse" data-state="1">&#xE8D9;</div>
+            <div class="_crystal-cntrl-label"><i class="_crystal-material-icon _crystal-font-and-a-half">&#xE3A2;</i> Views</div>
+            <div class="_crystal-display-type-bttn" id="_crystalUnitCellBttn" data-tooltip="Unit cell view"></div>
+            <div class="_crystal-display-type-bttn" id="_crystalSphereBttn" data-tooltip="Quantum dot view"></div>
+            <div class="_crystal-display-type-bttn" id="_crystalSemisphereBttn" data-tooltip="Semi-sphere view"></div>
+        </div>
+        <div class="_crystal-cntrl-row-end"></div>
+        <div class="_crystal-cntrl-category" id="_crystalUnitCellCntrls">
+            <div class="_crystal-cntrl-row">
+                <div class="_crystal-collapser _crystal-material-icon" data-tooltip="Collapse" data-state="1">&#xE8D9;</div>
+                <div class="_crystal-cntrl-label"><i class="_crystal-material-icon _crystal-font-and-a-half">&#xE228;</i> Repetitions</div>
+                <div id="_crystalRepsRow">
+                    <div class="_crystal-vector-third">
+                        <span class="_crystal-incrementer-label">T<span class="_crystal-subscript">1</span> : </span>
+                        <div class="_crystal-material-icon _crystal-incrementer" data-translation-index="0" data-increment="-1">&#xE313;</div>
+                            <div class="_crystal-reps-display">0</div>
+                        <div class="_crystal-material-icon _crystal-incrementer _crystal-incrementer-available"  data-translation-index="0" data-increment="1">&#xE316;</div>
+                    </div>
+                    <div class="_crystal-vector-third">
+                        <span class="_crystal-incrementer-label">T<span class="_crystal-subscript">2</span> : </span>
+                        <div class="_crystal-material-icon _crystal-incrementer"  data-translation-index="1" data-increment="-1">&#xE313;</div>
+                            <div class="_crystal-reps-display">0</div>
+                        <div class="_crystal-material-icon _crystal-incrementer _crystal-incrementer-available"  data-translation-index="1" data-increment="1">&#xE316;</div>
+                    </div>
+                    <div class="_crystal-vector-third">
+                        <span class="_crystal-incrementer-label">T<span class="_crystal-subscript">3</span> : </span>
+                        <div class="_crystal-material-icon _crystal-incrementer" data-translation-index="2" data-increment="-1">&#xE313;</div>
+                            <div class="_crystal-reps-display">0</div>
+                        <div class="_crystal-material-icon _crystal-incrementer _crystal-incrementer-available" data-translation-index="2" data-increment="1">&#xE316;</div>
+                    </div>
+                </div>
+            </div>
+            <div class="_crystal-cntrl-row-end"></div>
+            <div class="_crystal-cntrl-row">
+                <!-- Controls for toggling supercell edges-->
+                <div id="_crystalToggleEdges" class="_crystal-toggle-box _crystal-material-icon">&#xE876;</div> Show Unit Cell Frame
+            </div>
+            <div class="_crystal-cntrl-row-end"></div>
+        </div>
+        <div id="_crystalSphereCntrls" class="_crystal-cntrl-category _crystal-collapsed"></div>
+        <div id="_crystalSemisphereCntrls" class="_crystal-cntrl-category _crystal-collapsed">
+            <div class="_crystal-cntrl-row" id="_crystalSpacerRow">
+                <div class="_crystal-collapser _crystal-material-icon" data-tooltip="Collapse" data-state="1">&#xE8D9;</div>
+                <div class="_crystal-cntrl-label"><i class="_crystal-material-icon _crystal-font-and-a-half">&#xE2C6;</i> Plane Normal</div>
+                <div class="_crystal-center-text">
+                    <div class="_crystal-info">Ex: 1  1/2  -2 ; fraction notation okay. negative = bar.</div>
+                    ( 
+                    <input type="text" class="_crystal-slicer-component" id="_crystalSemisphereX" data-component="0" value="1" /> 
+                    <input type="text" class="_crystal-slicer-component" id="_crystalSemisphereY" data-component="1" value="1" /> 
+                    <input type="text" class="_crystal-slicer-component" id="_crystalSemisphereZ" data-component="2" value="1" /> 
+                    )
+                    <button class="_crystal-send-square" id="_crystalSubmitSlicer"><i class="_crystal-material-icon _crystal-font-and-a-half">&#xE163;</i></button>
+                    <div class="_crystal-info" id="_crystalSlicerPreview"> Preview: <span id="_crystalSlicerPreviewVector">( 1 1 1 )</span> </div>
+                    <div class="_crystal-info"> Currently: <span id="_crystalSemisphereCurrentVector">( 1 1 1 )</span> </div>
+                </div>
+            </div>
+            <div class="_crystal-cntrl-row-end"></div>
+        </div>
+        <div class="_crystal-cntrl-category">
+            <div class="_crystal-cntrl-row _crystal-center-text">
+                <div class="_crystal-collapser _crystal-material-icon" data-tooltip="Collapse"  data-state="1">&#xE8D9;</div>
+                <div class="_crystal-cntrl-label"><i class="_crystal-material-icon _crystal-font-and-a-half">&#xE0B2;</i> Cameras</div>
+                <div class="_crystal-view-type-bttn _crystal-material-icon" id="_crystalPerspectiveCam" data-tooltip="Perspective">&#xE6DD;</div>
+                <div class="_crystal-view-type-bttn _crystal-material-icon" id="_crystalOrthoCam" data-tooltip="Orthographic">&#xE3EA;</div>
+                <div class="_crystal-view-type-bttn _crystal-material-icon" id="_crystal3dCam" data-tooltip="3D">&#xE84D;</div>
+            </div>
+            <div class="_crystal-cntrl-row-end"></div>
+            <div class="_crystal-cntrl-row">
+                <div class="_crystal-collapser _crystal-material-icon" data-tooltip="Collapse"  data-state="1">&#xE8D9;</div>
+                <div class="_crystal-cntrl-label"><i class="_crystal-material-icon _crystal-font-and-a-half">&#xE0B2;</i> Vectors</div>
+                <div class="_crystal-center-text" id="_crystalVectorRow">
+                    <div class="_crystal-info">Ex: 1  1/2  -2 ; fraction notation okay. negative = bar.</div>
+                    ( 
+                    <input type="text" class="_crystal-vector-component" id="_crystalVectorX" data-component="0" value="0" /> 
+                    <input type="text" class="_crystal-vector-component" id="_crystalVectorY" data-component="1" value="0" /> 
+                    <input type="text" class="_crystal-vector-component" id="_crystalVectorZ" data-component="2" value="0" />
+                    )
+                    <button class="_crystal-send-square" id="_crystalVectorSubmitBttn">Add&nbsp;<i class="_crystal-material-icon">&#xE163;</i></button>
+                    <div class="_crystal-info"> Preview: <span id="_crystalVectorPreviewVector">Enter components</span> </div>
+                    <div id="_crystalVectorBox">
+                        <div class="_crystal-vector-row">
+                            <div class="_crystal-vector-stripe"></div>
+                            <div class="_crystal-vector-display">( 1 1 1 )</div>
+                            <div class="_crystal-vector-cntrls">
+                                <div 
+                                    class="_crystal-vector-bttn _crystal-vector-visibility" data-visibility="1" data-tooltip="Toggle visibility"><i class="_crystal-material-icon">&#xE876;</i></div><div 
+                                    class="_crystal-vector-bttn _crystal-vector-out" data-tooltip="Point out"><i class="_crystal-material-icon">&#xE39E;</i></div><div 
+                                    class="_crystal-vector-bttn _crystal-vector-softup" data-tooltip="Soft up"><i class="_crystal-material-icon">&#xE316;</i></div><div 
+                                    class="_crystal-vector-bttn _crystal-vector-hardup" data-tooltip="Hard up"><i class="_crystal-material-icon">&#xE25A;</i></div><div 
+                                    class="_crystal-vector-bttn _crystal-vector-remove" data-tooltip="Remove vector"><i class="_crystal-material-icon">&#xE15C;</i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="_crystal-cntrl-row-end"></div>
+            <div class="_crystal-cntrl-row">
+                <!-- Controls for toggling bonds edges-->
+                <div id="_crystalToggleBonds" class="_crystal-toggle-box _crystal-material-icon">&#xE876;</div> Show Bonds
+            </div>
+            <div class="_crystal-cntrl-row-end"></div>
+        </div>
+    </div>
+</div>
+<div class="_crystalLoading _crystal-material-icon">&#xE86A;</div>

@@ -1,0 +1,418 @@
+div#_crystalTargetDiv{
+    position : absolute;
+    display : none;
+    z-index: 100;
+    width : 40px;
+    height : 40px;
+    border-radius : 20px;
+    background-color : transparent;
+    border-style : solid;
+    border-width : 2px;
+    border-color : rgba(0,255,0,0.5);
+    overflow : visible;
+    box-shadow : 0 0 2px 1px black;
+}
+div#_crystalVerticalBar{
+    position : absolute;
+    width : 2px;
+    height : 60px;
+    top : -10px;
+    left : 19px;
+    background-color : rgba(0,255,0,0.5);
+    box-shadow : 0 0 2px 1px black;
+}
+div#_crystalHorizontalBar{
+    position : absolute;
+    height : 2px;
+    width : 60px;
+    top : 19px;
+    left : -10px;
+    background-color : rgba(0,255,0,0.5);
+    box-shadow : 0 0 2px 1px black;
+}
+div#_crystalUiDiv{
+    position : absolute;
+    width : 25%;
+    min-width:450px;
+    top: 0;
+    bottom: 0;
+    left : 0;
+    padding-top:10px;
+    overflow:visible;
+    background-color : white;
+    z-index : 100;
+    font-family: 'Roboto', Arial, sans-serif;
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+    color:#555;
+}
+div._crystal-ui-scroll-wrapper{
+    position:absolute;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    overflow:auto;
+}
+div._crystal-ui-tab{
+    position:absolute;
+    top:0;
+    left:100%;
+    background-color:white;
+    font-size:70px;
+    padding:10px 0;
+    border-radius:0 0 10px 0;
+    cursor:pointer;
+}
+div#_crystalUiDiv button{
+    font-family: "Roboto medium", sans-serif;
+    display: inline-block;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color:#ddd;
+    border:0;
+    border-radius: 2px;
+    outline:0;
+    box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
+                0 3px 14px 2px rgba(0, 0, 0, 0.12),
+                0 5px 5px -3px rgba(0, 0, 0, 0.4);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    color:#555;
+}
+div#_crystalUiDiv button:active {
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.20), 
+                0 2px 7px 0 rgba(150, 200, 175, 0.18), 
+                0 3px 2px -2px rgba(0, 0, 0, 0.48);
+}
+div#_crystalUiDiv button:hover {
+    background-color:#def;
+}
+div#_crystalUiDiv input{
+    color:#555;
+}
+div#_crystalCntrlBlocker{
+    position:absolute;
+    z-index:200;
+    top:0;
+    bottom:0;
+    left: -10000px;
+    width:100%;
+    background-color: rgba(255,255,255,0.5)
+}
+._crystal-material-icon {
+    vertical-align:middle;
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+._crystal-double-font{
+    font-size: 200%;
+}
+._crystal-font-and-a-half{
+    font-size:150%
+}
+._crystal-flex-row, ._crystal-flex-column{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+._crystal-flex-row{
+    flex-direction: row;
+}
+._crystal-flex-column{
+    flex-direction: column;
+}
+._crystal-collapsed{
+    height:0;
+}
+div._crystal-cntrl-row{
+    font-size: 20px;
+    position:relative;
+    width:100%;
+    overflow:hidden;
+}
+div._crystal-center-text{
+    text-align:center
+}
+div._crystal-display-type-bttn{
+    float:left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width : 33.3%;
+    padding-top: 33.3%;
+    cursor: pointer;
+}
+div._crystal-view-type-bttn{
+    float:left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size:75px;
+    padding:10px;
+    cursor: pointer;
+    margin:0 20px;
+}
+div#_crystalUnitCellBttn{
+    left: 0;
+    background: url(unitcell.png);
+}
+div#_crystalSphereBttn{
+    left: 33%;
+    background: url(sphere.png);
+}
+div#_crystalSemisphereBttn{
+    left: 66%; 
+    background: url(semisphere.png);
+}
+div#_crystalUnitCellBttn, div#_crystalSphereBttn, div#_crystalSemisphereBttn{
+    background-size: 100%;
+    background-position:center center;
+}
+div#_crystalUnitCellBttn:hover, div#_crystalSphereBttn:hover, div#_crystalSemisphereBttn:hover{
+    background-size: 110%;
+    opacity: 0.8;
+}
+div._crystal-tooltip{
+    position:absolute;
+    left:-10000px;
+    font-size:15px;
+    height:15px;
+    padding:2px;
+    background-color:white;
+    border-radius: 2px;
+    border:1px solid #555;
+    z-index:200;
+}
+div._crystalLoading{
+    position:absolute;
+    display: none;
+    -webkit-animation: 1s linear 0s infinite reverse spin;
+    animation: 1s linear 0s infinite reverse spin;
+    top: 0;
+    right: 0;
+    font-size: 50px;
+    color:white;
+    z-index: 100;
+    overflow:visible;
+}
+
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+}
+div._crystal-cntrl-label{
+    font-size:25px;
+    margin:0 20px;
+    text-align:left;
+}
+div#_crystalRepsRow{
+    position:relative;
+    width:100%;
+}
+div._crystal-cntrl-row-end{
+    display:block;
+    margin:10px 20px;
+    clear:both;
+    height:2px;
+    background-color:#777;
+}
+div._crystal-vector-third{
+    float:left;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    width:33%;
+    min-height:65px;
+    padding: 10px none;
+}
+div._crystal-incrementer{
+    border:none;
+    outline:none;
+    padding:5px;
+    font-size:20px;
+    color:#aaa;
+    background-color:#eeeeee;
+}
+div._crystal-incrementer-available
+{
+    cursor:pointer;
+    color:#333;
+}
+div._crystal-incrementer-available:hover{
+    background-color:#ddffee;
+}
+div._crystal-reps-display{
+    display: inline-block;
+    padding: 0 10px;
+    font-weight:bold;
+    font-size:20px;
+}
+span._crystal-subscript{
+    position:relative;
+    font-size:70%;
+    top:0.5em;
+}
+span._crystal-incrementer-label{
+    font-size:20px;
+    font-weight:bold;
+    position:relative;
+    margin-right:5px;
+}
+div._crystal-toggle-box{
+    display:inline-block;
+    vertical-align:middle;
+    margin:0 0 0 20px;
+    font-size:25px;
+    font-weight:bold;
+    overflow:visible;
+    width:25px;
+    height:15px;
+    padding:0 0 10px 0;
+    border: 1px solid #777;
+    border-radius:2px;
+    background-color:#ddd;
+    cursor:pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+div._crystal-toggle-box:hover{
+    background-color:#ddeeff;
+}
+div#_crystalVectorRow, div#_crystalSpacerRow{
+    font-size: 40px;
+}
+input._crystal-vector-component, input._crystal-slicer-component{
+    width:35px;
+    height:20px;
+    border: 1px solid #ccc;
+    font-size:20px;
+    padding:8px;
+    margin:0 5px;
+    text-align:center;
+    vertical-align:middle;
+}
+div._crystal-info{
+    font-size: 15px;
+    text-align: justify;
+    margin: 5px 10%;
+}
+button._crystal-send-square{
+    font-size:18px;
+    padding:7px;
+    vertical-align:middle;
+}
+div._crystal-vector-row{
+    display:none;
+    position: relative;
+    height: 25px;
+    font-size: 20px;
+    padding:5px 0;
+    text-align:left;
+}
+div._crystal-vector-cntrls{
+    position: absolute;
+    top: 0;
+    right:60px;
+    padding: 5px;
+    height: 20px;
+    font-size: 20px;
+    z-index:2;
+}
+div._crystal-vector-bttn{
+    display: inline-block;
+    font-size: 15px;
+    padding: 3px;
+    margin: 2px;
+    background-color: #eee;
+    cursor:pointer;
+    width:18px;
+    height:18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+div._crystal-vector-bttn:hover{
+    background-color: #def;
+}
+div._crystal-vector-display{
+    display:inline-block;
+    position:relative;
+    background-color: white;
+    padding:0 10px 0 50px;
+    z-index:2;
+}
+div._crystal-vector-stripe{
+    position:absolute;
+    top:16px;
+    left:50px;
+    right:70px;
+    height:4px;
+    border-radius:2px;
+    background-color:#ddd;
+    z-index: 1;
+}
+div._crystal-collapser{
+    display:inline-block;
+    position:absolute;
+    top:5px;
+    right:20px;
+    font-size:20px;
+    cursor:pointer;
+}
+div._crystal-cntrl-category{
+    overflow:hidden;
+}
+
+
+
+
+
+
+
+
