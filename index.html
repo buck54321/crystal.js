@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <meta name="viewport" content="width=1050">
+    <!-- Disable tap highlight on IE -->
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <!-- Web Application Manifest 
+    <link rel="manifest" href="manifest.json">-->
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Crystal.js">
+    <!--<link rel="icon" sizes="192x192" href="/images/full_logo_v0_195x195.png">-->
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Crystal.js">
+    <!--<link rel="apple-touch-icon" href="/images/full_logo_v0_195x195.png">-->
+
+    <!-- Color the status bar on mobile devices -->
+    <meta name="theme-color" content="#ddddff">
+
+    <!--<link rel="stylesheet" type="text/css" href="/css/main.css?v=16" />-->
+    <!--<link href="/images/favicon.ico?v=0" rel="icon" type="image/x-icon" />-->
+    <!--Bree+Serif|EB+Garamond|Libre+Baskerville -->
+    <!--<link href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto|Audiowide|Material+Icons|EB+Garamond" rel="stylesheet" />-->
+    <title>Crystal.js WebGL Crystal Viewer</title>
+    <style>
+        div#crystalDiv{
+            position:fixed;
+            left:0;
+            right:0;
+            top:0;
+            bottom:0;
+            overflow:hidden;
+        }
+    </style>
+</head>
+<body>
+    <div id="crystalDiv"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/94/three.min.js"></script>
+    <script src="/crystal/jquery.mousewheel.min.js"></script>
+    <script src="/crystal/crystal.js?v=0"></script>
+    <script>
+        var translations = [[1.0,0,0],[0,1.0,0],[0,0,1.0]]
+        atoms = []
+        atoms.push(['A', 0.0, 0.0, 0.0])
+        atoms.push(['G', 0.5, 0.5, 0.0])
+        atoms.push(['C', 0.0, 0.5, 0.5])
+        atoms.push(['De', 0.5, 0.0, 0.5])
+        atoms.push(['Xy', 0.25, 0.25, 0.25])
+        atoms.push(['Z', 0.75, 0.75, 0.25])
+        atoms.push(['W', 0.25, 0.75, 0.75])
+        atoms.push(['H', 0.75, 0.25, 0.75])
+        crystal = new Crystal(translations, atoms);
+        crystal.init("crystalDiv");
+    </script>
+</body>
+</html>

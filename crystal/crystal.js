@@ -1,10 +1,37 @@
-function __Crystal(){
+
+var scriptEls = document.getElementsByTagName( 'script' );
+var thisScriptEl = scriptEls[scriptEls.length - 1];
+var scriptPath = thisScriptEl.src;
+var __CRYSTAL_ROOT_PATH = scriptPath.substr(0, scriptPath.lastIndexOf( '/' )+1 );
+
+
+
+//
+//
+//
+//if(typeof jQuery == 'undefined'){
+//    document.write('<script src="'+rootDirectory+'/jquery.min.js"></script>');
+//}
+//if(typeof jQuery(document).mousewheel == 'undefined'){
+//    document.write('<script src="'+rootDirectory+'/jquery.mousewheel.min.js"></script>');
+//}
+//
+////if(typeof THREE == 'undefined'){
+////    document.write('<script src="'+rootDirectory+'/three.min.js"></script>');
+////}
+
+function Crystal(translations, atoms){
     var self = this;
     var crystal = this;
     this.rootDirectory = false // Path to crystal.js directory. Needs to be set before calling init()
     this.cntrl = {}
     this.ui = {}
     this.ui.loaded = false
+    this.newAtoms = atoms
+    this.translations = translations.map(function(t){
+        return new THREE.Vector3(t[0],t[1],t[2])
+    })
+    this.faceNormals = new Array(self.translations.length)
     var Element = function(symbol, hue, radius, sections){
         this.symbol = symbol
         this.hue = hue
@@ -78,7 +105,7 @@ function __Crystal(){
         this.layers.enable(1)
         this.layers.enable(2)
         this.rotateX(Math.PI/2)
-        this.axis = this.getWorldDirection()
+        this.axis = this.getWorldDirection(new THREE.Vector3())
         //var geometry = new THREE.SphereGeometry( this.radius, 32, 32 );
         cap1 = new THREE.Mesh(sphereGeometry, material)
         cap2 = new THREE.Mesh(sphereGeometry, material)
@@ -111,7 +138,7 @@ function __Crystal(){
         this.add(this.cylinder)
         this.layers.enable(1)
         this.layers.enable(2)
-        this.ogAxis = this.cylinder.getWorldDirection()
+        this.ogAxis = this.cylinder.getWorldDirection(new THREE.Vector3())
         this.cylinder.rotateX(Math.PI/2)
         var buttGeometry = new THREE.SphereGeometry( this.radius, 32, 32 );
         var butt = new THREE.Mesh(buttGeometry, material)
@@ -138,12 +165,12 @@ function __Crystal(){
         }
         this.tip = function(){
             //console.log(self.axis().multiplyScalar(self.len+this.pointerLen))
-            return self.getWorldPosition().add(self.axis()).multiplyScalar(self.len+this.pointerLen)
+            return self.getWorldPosition(new THREE.Vector3()).add(self.axis()).multiplyScalar(self.len+this.pointerLen)
         }
     }
     Arrow.prototype = Object.create(THREE.Group.prototype);
     Arrow.prototype.constructor = Arrow;
-    this.init = function(frameId){
+    this.init = function(frameId, translations, atoms){
         self.jqWindow = $(window);
         self.jqDoc = $(document)
         self.lockOrientation = screen.lockOrientation || screen.mozLockOrientation || screen.msLockOrientation;
@@ -170,7 +197,7 @@ function __Crystal(){
         self.muddiness = 0.2
         self.keys = {}
         self.bttns = {}
-        self.axes = {}
+        self.axes = {} // Bluetooth controller axes
         self.elements = {}
         self.lastMoveTime = 0
         self.center = new THREE.Vector3()
@@ -373,7 +400,7 @@ function __Crystal(){
         return self.camera.up.clone().applyQuaternion( self.camera.quaternion );
     }
     this.cameraRight = function(){
-        return self.camera.getWorldDirection().cross(self.cameraUp())
+        return self.camera.getWorldDirection(new THREE.Vector3()).cross(self.cameraUp())
     }
     this.generateHue = function(){
         // Generates colors on the sequence 0, 1/2, 1/4, 3/4, 1/8, 3/8, 5/8, 7/8, 1/16, ...
@@ -395,18 +422,6 @@ function __Crystal(){
         self.colorDenominator = 2
         return self.generateHue()
     }
-    this.newAtoms = []
-    this.translations = [[1.0,0,0],[0,1.0,0],[0,0,1.0]].map(function(t){
-        return new THREE.Vector3(t[0],t[1],t[2])
-    })
-    this.newAtoms.push(['A', 0.0, 0.0, 0.0])
-    this.newAtoms.push(['G', 0.5, 0.5, 0.0])
-    this.newAtoms.push(['C', 0.0, 0.5, 0.5])
-    this.newAtoms.push(['De', 0.5, 0.0, 0.5])
-    this.newAtoms.push(['Xy', 0.25, 0.25, 0.25])
-    this.newAtoms.push(['Z', 0.75, 0.75, 0.25])
-    this.newAtoms.push(['W', 0.25, 0.75, 0.75])
-    this.newAtoms.push(['H', 0.75, 0.25, 0.75])
     this.buildCrystal = function(){
         self.functionalRepetitions = (self.currentView == 'unit cell' ? self.ucRepetitions : self.sphereRepetitions)
         self.buildSupercell()
@@ -421,7 +436,6 @@ function __Crystal(){
         self.camera.setRotationFromQuaternion(new THREE.Quaternion())
         self.camera.lookAt(new THREE.Vector3())
     }
-    this.faceNormals = new Array(self.translations.length)
     this.buildSupercell = function(){
         self.cornerRepeatVectors = []
         //var repetitions = (self.currentView == 'unit cell' ? self.ucRepetitions : self.sphereRepetitions)
@@ -661,7 +675,7 @@ function __Crystal(){
     this.cam.pitch = function(theta){
         var up = new THREE.Vector3(); // create once and reuse it
         up.copy( self.camera.up ).applyQuaternion( self.camera.quaternion );
-        var right = self.camera.getWorldDirection().cross(up)
+        var right = self.camera.getWorldDirection(new THREE.Vector3()).cross(up)
         self.camera.applyQuaternion(self.axisAngleQuaternion(right, theta))
     }
     this.cam.verticalTranslate = function(y){
@@ -672,14 +686,14 @@ function __Crystal(){
     this.cam.horizontalTranslate = function(x){
         var up = new THREE.Vector3(); // create once and reuse it
         up.copy( self.camera.up ).applyQuaternion( self.camera.quaternion );
-        var right = self.camera.getWorldDirection().cross(up)
+        var right = self.camera.getWorldDirection(new THREE.Vector3()).cross(up)
         self.camera.translateOnAxis(right,x)
     }
     this.cam.forwardTranslate = function(z){
-        self.camera.translateOnAxis(self.camera.getWorldDirection(),z)
+        self.camera.translateOnAxis(self.camera.getWorldDirection(new THREE.Vector3()),z)
     }
     this.cam.roll = function(phi){
-        self.camera.applyQuaternion(self.axisAngleQuaternion(self.camera.getWorldDirection(), phi))
+        self.camera.applyQuaternion(self.axisAngleQuaternion(self.camera.getWorldDirection(new THREE.Vector3()), phi))
     }
     this.cntrl.yawAlpha = 0
     this.cntrl.yawVelocity = 0
@@ -706,9 +720,9 @@ function __Crystal(){
         self.cntrl.righthatStep = (self.keys[237] + self.keys[239] - self.axes[2])
         var up = new THREE.Vector3(); // create once and reuse it
         up.copy( self.camera.up ).applyQuaternion( self.camera.quaternion );
-        var forward = self.camera.getWorldDirection()
-        var right = self.camera.getWorldDirection().cross(up)
-        if(self.shiftPressed || self.axes[2] || self.axes[3]){
+        var forward = self.camera.getWorldDirection(new THREE.Vector3())
+        var right = self.camera.getWorldDirection(new THREE.Vector3()).cross(up)
+        if(!self.shiftPressed || self.axes[2] || self.axes[3]){
             var camPos = self.camera.position
             var posLen = camPos.length()
             var orbitUp = camPos.clone().cross(right).normalize().negate()
@@ -773,8 +787,8 @@ function __Crystal(){
         }
         self.vectorTextNodes.children.forEach(function(node){
             if(node.isActive){
-                node.quaternion.copy(self.camera.getWorldQuaternion())
-                //node.lookAt(self.camera.getWorldPosition())
+                node.quaternion.copy(self.camera.getWorldQuaternion(new THREE.Vector3()))
+                //node.lookAt(self.camera.getWorldPosition(new THREE.Vector3()))
             }
         })
     }
@@ -801,14 +815,13 @@ function __Crystal(){
     }
     this.positionTextToAtom = function(atom){
         if(!(atom.symbol in self.elements)){return;}
-        var toward = self.camera.position.clone().add(atom.getWorldPosition().negate()).normalize()
+        var toward = self.camera.position.clone().add(atom.getWorldPosition(new THREE.Vector3()).negate()).normalize()
         var up = new THREE.Vector3(); // create once and reuse it
         up.copy( self.camera.up ).applyQuaternion( self.camera.quaternion );
-        var right = self.camera.getWorldDirection().cross(up)
-        var textPosition = atom.getWorldPosition().add(toward.multiplyScalar(2.0*atom.radius)) //.add(self.elements[atom.symbol].textNode.centerShifter.clone().applyQuaternion(self.camera.getWorldQuaternion())) //.add(right.clone().multiplyScalar(-1*textWidth/2)).add(up.clone().negate().multiplyScalar(textHeight/2))
+        var right = self.camera.getWorldDirection(new THREE.Vector3()).cross(up)
+        var textPosition = atom.getWorldPosition(new THREE.Vector3()).add(toward.multiplyScalar(2.0*atom.radius)) //.add(self.elements[atom.symbol].textNode.centerShifter.clone().applyQuaternion(self.camera.getWorldQuaternion(new THREE.Vector3()))) //.add(right.clone().multiplyScalar(-1*textWidth/2)).add(up.clone().negate().multiplyScalar(textHeight/2))
         self.elements[atom.symbol].textNode.position.copy(textPosition)
-        self.elements[atom.symbol].textNode.setRotationFromQuaternion(self.camera.getWorldQuaternion())
-        //atom.textNode.lookAt(atom.getWorldPosition().add(self.camera.getWorldPosition()))
+        self.elements[atom.symbol].textNode.setRotationFromQuaternion(self.camera.getWorldQuaternion(new THREE.Quaternion()))
     }
     this.axisAngleQuaternion = function(axis, theta){
         // Attempt to rotate tracer about fixed axis by angle theta using quaternions. See http://paulbourke.net/geometry/rotate/
@@ -819,10 +832,10 @@ function __Crystal(){
     this.bindControls = function(){
         self.jqDoc.mousewheel(function(turn, delta) {
             if (delta == 1){ //scrolled down
-                self.camera.position.add(self.camera.getWorldDirection().multiplyScalar(0.1))
+                self.camera.position.add(self.camera.getWorldDirection(new THREE.Vector3()).multiplyScalar(0.1))
             }
             else{
-                self.camera.position.add(self.camera.getWorldDirection().multiplyScalar(-0.1))
+                self.camera.position.add(self.camera.getWorldDirection(new THREE.Vector3()).multiplyScalar(-0.1))
             }
             return;
         });
@@ -833,37 +846,37 @@ function __Crystal(){
             switch(e.which) {
                 case 37: // left -> yaw left
                 if(self.shiftPressed){
-                    self.keys[237] = 1
+                    self.keys[37] = 1
                 }
                 else{
-                    self.keys[37] = 1
+                    self.keys[237] = 1
                 }
                 break;
 
                 case 38: // up -> pitch up
                 if(self.shiftPressed){
-                    self.keys[238] = 1
+                    self.keys[38] = 1
                 }
                 else{
-                    self.keys[38] = 1
+                    self.keys[238] = 1
                 }
                 break;
 
                 case 39: // right ->  yaw right
                 if(self.shiftPressed){
-                    self.keys[239] = -1
+                    self.keys[39] = -1
                 }
                 else{
-                    self.keys[39] = -1
+                    self.keys[239] = -1
                 }
                 break;
 
                 case 40: // down -> pitch down
                 if(self.shiftPressed){
-                    self.keys[240] = -1
+                    self.keys[40] = -1
                 }
                 else{
-                    self.keys[40] = -1
+                    self.keys[240] = -1
                 }
                 break;
                 
@@ -1332,7 +1345,7 @@ function __Crystal(){
             })
             self.ui.cameraSoftUp = function(axis){
                 self.camera.lookAt(self.zeroVector)
-                var out = self.camera.getWorldDirection()
+                var out = self.camera.getWorldDirection(new THREE.Vector3())
                 var proj = axis.projectOnPlane(out)
                 var up = self.cameraUp()
                 if(proj.length() < 0.001){
@@ -1397,7 +1410,7 @@ function __Crystal(){
                     var up = self.cameraUp()
                     var axis = arrow.axis()
                     var proj = axis.clone().projectOnPlane(up)
-                    var out = self.camera.getWorldPosition().normalize()
+                    var out = self.camera.getWorldPosition(new THREE.Vector3()).normalize()
                     var angle = out.angleTo(proj)
                     var quat = self.axisAngleQuaternion(up, angle)
                     var invQuat = quat.clone().inverse()
@@ -1413,7 +1426,7 @@ function __Crystal(){
                     }
                     var right = self.cameraRight()
                     axis = arrow.axis()
-                    out = self.camera.getWorldPosition().normalize()
+                    out = self.camera.getWorldPosition(new THREE.Vector3()).normalize()
                     angle = axis.angleTo(out)
                     quat = self.axisAngleQuaternion(right, angle)
                     invQuat = quat.clone().inverse()
@@ -1570,8 +1583,8 @@ function __Crystal(){
         }
         var width = self.frame.width()/2
         var height = self.frame.height()
-        //var v = self.camera.getWorldPosition()
-        //var q = self.camera.getWorldQuaternion()
+        //var v = self.camera.getWorldPosition(new THREE.Vector3())
+        //var q = self.camera.getWorldQuaternion(new THREE.Vector3())
         self.stereoCamera.update(self.perspectiveCamera)
         self.leftCamera.aspect = width/height
         self.leftCamera.updateProjectionMatrix()
@@ -1613,12 +1626,7 @@ function __Crystal(){
         self.animate3d()
     }
     this.localFilepath = function(filename){
-        return self.rootDirectory+'/'+filename
+        return __CRYSTAL_ROOT_PATH+'/'+filename
     }
 }
-var scriptEls = document.getElementsByTagName( 'script' );
-var thisScriptEl = scriptEls[scriptEls.length - 1];
-var scriptPath = thisScriptEl.src;
-crystal = new __Crystal();
-crystal.rootDirectory = scriptPath.substr(0, scriptPath.lastIndexOf( '/' )+1 );
-crystal.init("crystalFrame");
+
