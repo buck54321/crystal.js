@@ -2,6 +2,8 @@
 Crystal.js
 ==========
 
+See a demo at `scico.us/crystal <http://scico.us/crystal>`_
+
 A WebGL 3D crystal viewer with the following features
 
 - No server-side processing. Uses HTML 5 canvas with WebGL to leverage the user's graphics processing capabilities.
@@ -11,7 +13,6 @@ A WebGL 3D crystal viewer with the following features
 - Create surfaces in any direction
 - Spherical, semi-sphere, unit cell and supercell views
 - Perspective and orthographic projections
-- Add vectors in any direction
 - Six-dimensional position control (3 translational, 3 rotational)
 - Add vectors and use them to orient the crystal
 
