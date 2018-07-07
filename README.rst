@@ -14,17 +14,16 @@ A WebGL 3D crystal viewer with the following features
 - Six-dimensional position control (3 translational, 3 rotational)
 
 
-===
-How to use.
-===
+----------
+How to use
+----------
 
 The viewer relies on the libraries jQuery, THREE.js, and `jquery-mousewheel <https://github.com/jquery/jquery-mousewheel>`_
 
 You can load them all from the crystal directory, but you will load faster if you use a CDN for the first two. 
 
-
 ::
-    ...
+
     <body>
     <!-- Create a div to hold the crystal. Should probably have at explicit positioning set.  -->
     <div id="crystalDiv" style="position:fixed;top:0;bottom:0;left:0;right:0"></div>
@@ -35,7 +34,7 @@ You can load them all from the crystal directory, but you will load faster if yo
     <script src="/crystal/jquery.mousewheel.min.js"></script>
     <script src="/crystal/crystal.js?v=0"></script>
     
-    <!-- Create a set of translation vectors and basis atoms, and initialize the crystal. -->
+    <!-- Create a set of translation vectors and basis atoms, and initialize the crystal. -->    
     <script>
         var translations = [[1.0,0,0],[0,1.0,0],[0,0,1.0]]
         atoms = []
