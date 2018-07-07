@@ -4,6 +4,7 @@ Crystal.js
 
 A WebGL 3D crystal viewer with the following features
 
+- No server-side processing. Uses HTML 5 canvas with WebGL to leverage the user's graphics processing capabilities.
 - Virtually zero lag with hundreds of atoms
 - Control with the mouse, the keyboard, or a game controller.
 - Immersive 3D mode compatible with any phone and headset (you'll want the game controller).
@@ -12,6 +13,7 @@ A WebGL 3D crystal viewer with the following features
 - Perspective and orthographic projections
 - Add vectors in any direction
 - Six-dimensional position control (3 translational, 3 rotational)
+- Add vectors and use them to orient the crystal
 
 
 ----------
@@ -25,7 +27,7 @@ You can load them all from the crystal directory, but you will load faster if yo
 ::
 
     <body>
-    <!-- Create a div to hold the crystal. Should probably have at explicit positioning set.  -->
+    <!-- Create a div to hold the crystal. Should probably have explicit positioning set.  -->
     <div id="crystalDiv" style="position:fixed;top:0;bottom:0;left:0;right:0"></div>
     
     <!-- Load the necessary scripts. Faster to use a CDN.  -->
